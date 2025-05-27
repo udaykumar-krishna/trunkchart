@@ -1,0 +1,103 @@
+ return CsvConvertor.parseR1CDNURSection(gstin, fp, data.get('cdnur'))
+
+ @staticmethod
+    def parseR1CDNURSection(gstin, fp, cdnurJson):
+        line = []
+        line.append('Taxpayer GSTIN' + ',' +
+                    'Return Period' + ',' +
+                    'Note type' + ',' +
+                    'Invoice Type' + ',' +
+                    'Note Number' + ',' +
+                    'Note Date' + ',' +
+                    'Invoice Number' + ',' +
+                    'Invoice Date' + ',' +
+                    'Invoice Value' + ',' +
+                    'Serial No.' + ',' +
+                    'Rate' + ',' +
+                    'Taxable Value' + ',' +
+                    'IGST Amount' + ',' +
+                    # 'CGST Amount' + ',' +
+                    # 'SGST Amount' + ',' +
+                    'CESS Amount' + ',' +
+                    'Differential Percentage' + ',' +
+                    'Reason' + ',' +
+                    'Pre GST Regime' + ',' +
+                    'Taxpayer Flag' + ',' +
+                    'Place of Supply' + ',' +
+                    'Delink Flag' + ',' +
+                    'Source Type of IRN' + ',' +
+                    'IRN number' + ',' +
+                    'IRN generation Date')
+        # line.append('gstin' + ',' + 'fp' + ',' + 'ntty' + ',' +
+        #             'typ' + ',' +
+        #             'nt_num' + ',' +
+        #             'nt_dt' + ',' +
+        #             'inum' + ',' +
+        #             'idt' + ',' +
+        #             'val' + ',' +
+        #             'num' + ',' +
+        #             'rt' + ',' +
+        #             'txval' + ',' +
+        #             'iamt' + ',' +
+        #             #'camt' + ',' +
+        #             #'samt' + ',' +
+        #             'csamt' + ',' +
+        #             'diff_percent' + ',' +
+        #             'rsn' + ',' +
+        #             'p_gst' + ',' +
+        #             'flag')
+        for rec in cdnurJson:
+            typ = rec.get('typ', '')
+            ntty = rec.get('ntty', '')
+            nt_num = "'" + rec.get('nt_num') if rec.get('nt_num', '') != '' else ""
+            nt_dt = "'" + rec.get('nt_dt') if rec.get('nt_dt', '') != '' else ""
+            rsn = rec.get('rsn', '')
+            p_gst = rec.get('p_gst', '')
+            inum = "'" + rec.get('inum') if rec.get('inum', '') != '' else ""
+            idt = "'" + rec.get('idt') if rec.get('idt', '') != '' else ""
+            diff_percent = rec.get('diff_percent', '')
+            val = rec.get('val', '')
+            flag = rec.get('flag', '')
+            det = rec.get('itms')
+            pos = rec.get('pos', '')
+            d_flag = rec.get('d_flag', '')
+
+            srctyp = rec.get('srctyp', '')
+            irn = rec.get('irn', '')
+            irngendate = "'" + rec.get('irngendate') if rec.get('irngendate', '') != '' else ""
+
+            for subRec in det:
+                num = subRec.get('num', '')
+                det = subRec.get("itm_det")
+                rt = det.get('rt', '')
+                txval = det.get('txval', 0)
+                iamt = det.get('iamt', 0)
+                # camt = det.get('camt', 0)
+                # samt = det.get('samt', 0)
+                csamt = det.get('csamt', 0)
+
+                line.append(gstin + ',' + "'" + fp + ',' + ntty + ',' +
+                            typ + ',' +
+                            nt_num + ',' +
+                            nt_dt + ',' +
+                            inum + ',' +
+                            idt + ',' +
+                            str(val) + ',' +
+                            str(num) + ',' +
+                            str(rt) + ',' +
+                            str(txval) + ',' +
+                            str(iamt) + ',' +
+                            # str(camt) + ',' +
+                            # str(samt) + ',' +
+                            str(csamt) + ',' +
+                            str(diff_percent) + ',' +
+                            rsn + "," +
+                            p_gst + "," +
+                            flag + ',' +
+                            pos + ',' +
+                            d_flag + ',' +
+                            srctyp + ',' +
+                            irn + ',' +
+                            irngendate)
+
+        return line

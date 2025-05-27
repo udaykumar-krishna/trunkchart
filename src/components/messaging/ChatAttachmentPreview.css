@@ -1,0 +1,58 @@
+.attachment-box {
+  width: 200px;
+  height: 180px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-image,
+.preview-pdf {
+  width: 100%;
+  object-fit: cover;
+}
+
+.preview-pdf {
+  height: 60%;
+  border-bottom: 1px solid #ccc;
+}
+
+.attachment-info {
+  height: 40%;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.attachment-info .filename {
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attachment-info .filesize {
+  font-size: 11px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.download-icon {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #007bff;
+}
+
+.download-icon:hover {
+  color: #0056b3;
+}
